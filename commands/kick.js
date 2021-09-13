@@ -11,7 +11,7 @@ module.exports = {
       member.kick();            
       return interaction.reply({content: `Kicked **${member}**`});
     }else{
-      return interaction.reply({content: "Tidak semudah itu ferguso"});
+      return interaction.reply({content: "Tidak semudah itu ferguso", ephemeral: true});
     }
 	},
 };

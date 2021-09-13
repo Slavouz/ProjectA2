@@ -10,13 +10,8 @@ module.exports = {
     const helpEmbed = new MessageEmbed()
     .setColor('#ffffff')    
     .setTitle("Bantuan")
-    .setDescription("Berikut adalah beberapa command yang bisa anda gunakan:")
-    .addFields(
-      {
-        name: 'Moderator',
-        value: 'ban, kick, clear',
-        inline: true,
-      },
+    .setDescription("Berikut adalah beberapa command yang bisa kalian gunakan:")    
+    helpEmbed.addFields(
       {
         name: 'General',
         value: 'ping, help',
@@ -24,10 +19,19 @@ module.exports = {
       },
       {
         name: 'Fun',
-        value: 'dadu, ka, halo, betulkah, choose',
+        value: 'dadu, kerangajaib, halo, choose',
         inline: true,
       },
     );
+    if(interaction.member.permissions.has(["ADMINISTRATOR"])){
+      helpEmbed.addFields(
+        {
+          name: 'Moderator',
+          value: 'ban, kick, clear',
+          inline: true,
+        },
+      );
+    }
 		return interaction.reply({embeds: [helpEmbed]});
 	},
 };
