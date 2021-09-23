@@ -1,7 +1,13 @@
 const fs = require('fs');
 const {Client, Collection, Intents} = require('discord.js');
-const client = new Client({intents: [Intents.FLAGS.GUILDS]});
+const Discord = require('discord.js');
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]});
+const {guildId} = require('./config.json');
 const keepAlive = require("./server");
+const ultrax = require('ultrax');
+const Canvas = require('canvas');
+const { registerFont } = require('canvas');
+registerFont('./texgyreadventor-bold.otf', { family: 'TeXGyreAdventor' });
 
 require('dotenv').config();
 
@@ -20,12 +26,55 @@ for(const file of commandFiles){
 client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
 
-  const command = client.commands.get(interaction.commandName);
+  const command = client.commands.get(interaction.commandName); 
 
   if(!command) return;
 
-  try{
-    await command.execute(interaction, client);
+  /**const fullPermissions = [
+	{
+		id: '889162700494630933', //ban
+		permissions: [{
+			id: '447298746548486155',
+			type: 'ROLE',
+			permission: true,
+		},
+    {
+      id: '480895659793449011',
+			type: 'ROLE',
+			permission: true,
+    }],
+	},
+	{
+		id: '889162700494630941', //kick
+		permissions: [{
+			id: '447298746548486155',
+			type: 'ROLE',
+			permission: true,
+		},
+    {
+      id: '480895659793449011',
+			type: 'ROLE',
+			permission: true,
+    }],
+	},
+  {
+    id: '889162700494630935', //clear
+    permissions: [{
+      id: '447298746548486155',
+      type: 'ROLE',
+      permission: true,
+    },
+    {
+      id: '480895659793449011',
+      type: 'ROLE',
+      permission: true,
+    }],
+  }
+  ];**/
+  try{    
+    //console.log(interaction.commandName + ' ' + interaction.commandId);
+    await command.execute(interaction, client); //DONT DELETE    
+    //await client.guilds.cache.get(guildId)?.commands.permissions.set({ fullPermissions });
   }catch(error){
     console.error(error);
     return interaction.reply({context:'There was an error while executing this command!', ephemeral: true});

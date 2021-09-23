@@ -5,7 +5,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('clear')
     .addIntegerOption(option => option.setName('jumlah').setDescription('Set jumlah').setRequired(true))
-		.setDescription('SWEEP SWEEP SWEEP'),
+		.setDescription('SWEEP SWEEP SWEEP')
+    .setDefaultPermission(false),
 	async execute(interaction, client) {
     if(interaction.member.permissions.has(["ADMINISTRATOR"])){
       const jml = interaction.options.getInteger('jumlah'); 
@@ -15,7 +16,9 @@ module.exports = {
         const Channel = interaction.channel;
         const messages = Channel.messages.fetch();
         await Channel.bulkDelete(jml, true);
-        return interaction.reply({content: `Done 👌`, ephemeral: true});
+        interaction.reply({content: `Done 👌`});
+        await delay(2000);
+        return interaction.deleteReply();
       }      
     }else{
       return interaction.reply({content: "Tidak semudah itu ferguso", ephemeral: true});
