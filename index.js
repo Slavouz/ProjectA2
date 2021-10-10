@@ -4,14 +4,13 @@ const Discord = require('discord.js');
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]});
 const {guildId} = require('./config.json');
 const keepAlive = require("./server");
-const ultrax = require('ultrax');
 const Canvas = require('canvas');
 const { registerFont } = require('canvas');
 registerFont('./texgyreadventor-bold.otf', { family: 'TeXGyreAdventor' });
 
 require('dotenv').config();
 
-client.on("ready", () => client.user.setPresence({activities: [{ name: 'himself getting developed',type: "WATCHING"}], status: 'online' }));
+client.on("ready", () => client.user.setPresence({activities: [{ name: "NieR:Automata™",type: "PLAYING"}], status: 'online' }));
 client.on("ready", () => console.log(`Logged in as ${client.user.tag}`));
 
 client.commands = new Collection();

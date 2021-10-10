@@ -16,7 +16,8 @@ module.exports = {
       const alasan = interaction.options.getString('reason');
       const banEmbed = new MessageEmbed()
       .setColor('#ff0000')    
-      .setTitle("<:FeelsBanMan:695228252318466099> Banned thanks!");
+      .setTitle("<:FeelsBanMan:695228252318466099> Banned thanks!")
+      .setImage('https://c.tenor.com/20Bv1f8Vx30AAAAC/thor-banned-ban-hammer.gif');
       if(alasan == null){
         banEmbed.setDescription(`**Banned: **${usn}#${dsc}\n**Reason: **gak tau <:KannaWhat:695228702413291520>`);
       }else{

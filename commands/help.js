@@ -19,7 +19,7 @@ module.exports = {
       },
       {
         name: 'Fun',
-        value: 'dadu, kerangajaib, halo, choose',
+        value: 'dadu, kerangajaib, halo, choose, meme',
         inline: true,
       },
     );
@@ -27,7 +27,7 @@ module.exports = {
       helpEmbed.addFields(
         {
           name: 'Moderator',
-          value: 'ban, kick, clear',
+          value: 'ban, kick, clear, embed',
           inline: true,
         },
       );

@@ -1,4 +1,3 @@
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -16,9 +15,7 @@ module.exports = {
         const Channel = interaction.channel;
         const messages = Channel.messages.fetch();
         await Channel.bulkDelete(jml, true);
-        interaction.reply({content: `Done 👌`});
-        await delay(2000);
-        return interaction.deleteReply();
+        return interaction.reply({content: `Done 👌`, ephemeral:true});      
       }      
     }else{
       return interaction.reply({content: "Tidak semudah itu ferguso", ephemeral: true});
