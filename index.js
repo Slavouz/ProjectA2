@@ -28,8 +28,8 @@ client.on('interactionCreate', async interaction => {
   const command = client.commands.get(interaction.commandName); 
 
   if(!command) return;
-
-  /**const fullPermissions = [
+  /**
+  const fullPermissions = [
 	{
 		id: '889162700494630933', //ban
 		permissions: [{
@@ -68,12 +68,25 @@ client.on('interactionCreate', async interaction => {
       type: 'ROLE',
       permission: true,
     }],
+  },
+  {
+    id: '905849092587012096', //addrole
+    permissions: [{
+      id: '447298746548486155',
+      type: 'ROLE',
+      permission: true,
+    },
+    {
+      id: '480895659793449011',
+      type: 'ROLE',
+      permission: true,
+    }],
   }
   ];**/
   try{    
     //console.log(interaction.commandName + ' ' + interaction.commandId);
     await command.execute(interaction, client); //DONT DELETE    
-    //await client.guilds.cache.get(guildId)?.commands.permissions.set({ fullPermissions });
+    /**await client.guilds.cache.get(guildId)?.commands.permissions.set({ fullPermissions });**/
   }catch(error){
     console.error(error);
     return interaction.reply({context:'There was an error while executing this command!', ephemeral: true});

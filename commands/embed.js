@@ -10,6 +10,7 @@ module.exports = {
     .addStringOption(option => option.setName('description').setDescription('Set Description').setRequired(true))
     .addStringOption(option => option.setName('color').setDescription('Set Color (Hex Color Code)').setRequired(true))
     .addChannelOption(option => option.setName('destination').setDescription('Set channel (optional)'))
+    .addStringOption(option => option.setName('img-url').setDescription('Tambahkan gambar'))
 		.setDescription('Create your own embed'),
 	async execute(interaction, client) {
     try{
@@ -18,10 +19,16 @@ module.exports = {
       const title = interaction.options.getString('title');
       const desc = interaction.options.getString('description');
       const canel = interaction.options.getChannel('destination');
+      const imgurl = interaction.options.getString('img-url');
       const embed = new MessageEmbed()
       .setColor(color)
       .setTitle(title)
       .setDescription(desc);
+
+      if(imgurl != null){
+        embed.setImage(imgurl)
+      }
+
       if(canel == null){
       return interaction.reply({embeds: [embed]});
       }else{

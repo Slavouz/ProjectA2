@@ -19,7 +19,12 @@ module.exports = {
       },
       {
         name: 'Fun',
-        value: 'dadu, kerangajaib, halo, choose, meme',
+        value: 'dadu, kerangajaib, halo, choose',
+        inline: true,
+      },
+      {
+        name: 'Image Manipulation',
+        value: 'meme, caption, caption2, motivate',
         inline: true,
       },
     );
