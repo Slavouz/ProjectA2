@@ -3,7 +3,7 @@ const {Client, Collection, Intents} = require('discord.js');
 const Discord = require('discord.js');
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]});
 const {guildId} = require('./config.json');
-const keepAlive = require("./server");
+//const keepAlive = require("./server");
 const Canvas = require('canvas');
 const { registerFont } = require('canvas');
 registerFont('./texgyreadventor-bold.otf', { family: 'TeXGyreAdventor' });
@@ -93,5 +93,5 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-keepAlive();
+//keepAlive();
 client.login(process.env.TOKEN);
