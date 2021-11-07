@@ -25,5 +25,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slavouz/ProjectA2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Slavouz/ProjectA2/issues"
+  },
+  "homepage": "https://github.com/Slavouz/ProjectA2#readme",
   "description": ""
 }
