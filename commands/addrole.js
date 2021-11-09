@@ -16,8 +16,8 @@ module.exports = {
 				new MessageSelectMenu()
 					.setCustomId('roleAssignBtn')
 					.setPlaceholder('Klik disini')
-          //.setMinValues(1)
-					//.setMaxValues(13)
+          .setMinValues(1)
+					.setMaxValues(13)
 					.addOptions([
 						{
               emoji: '<:OSU:604997343502270484>',
