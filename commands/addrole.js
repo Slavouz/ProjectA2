@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, MessageEmbed, MessageButton } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -99,6 +99,14 @@ module.exports = {
 						},
 					]),
 			);
+      
+      const row2 = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId('btn_reset')
+            .setLabel('RESET')
+            .setStyle('DANGER'),
+        );
 
       const embed = new MessageEmbed()
       .setColor('1155FF')
@@ -106,7 +114,7 @@ module.exports = {
       .setDescription("Silakan ambil role yang ada di bawah ini")
       .setImage("https://cdn.discordapp.com/attachments/733371190152003634/905817571729768468/PICK_YOUR_ROLES_h2ere.png");
 
-		  canel.send({embeds: [embed], components: [row] });
+		  canel.send({embeds: [embed], components: [row, row2] });
       return interaction.reply({content: "Done(?)", ephemeral: true});
       
     }else{

@@ -24,7 +24,7 @@ module.exports = {
       },
       {
         name: 'Image Manipulation',
-        value: 'meme, caption, caption2, motivate',
+        value: 'motivate',
         inline: true,
       },
     );

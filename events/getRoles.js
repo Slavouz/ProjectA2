@@ -68,7 +68,9 @@ module.exports = {
         rolesPick.push(blueArchive);
       }
 
-      for(let i = -1; i < rolesPick.length; i++){
+// console.log(rolesPick);
+      
+      for(let i = 0; i < rolesPick.length;){
         if(!interaction.member.roles.cache.has(rolesPick[0])){
           interaction.member.roles.add(rolesPick[0]);
           roleAdd.push('<@&' + rolesPick[0] + '>');
