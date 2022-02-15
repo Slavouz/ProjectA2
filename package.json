@@ -8,13 +8,15 @@
     "@discordjs/rest": "0.1.0-canary.0",
     "@discordjs/voice": "^0.6.0",
     "canvas": "^2.8.0",
-    "config.json": "0.0.4",
+    "config.json": "^0.0.1",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.2.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "ffmpeg": "0.0.4",
-    "fontconfig": "^0.2.2"
+    "fontconfig": "^0.2.2",
+    "play-dl": "^1.8.8",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "node": "^16.13.0"
