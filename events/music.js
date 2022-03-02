@@ -231,14 +231,15 @@ module.exports = {
       if (interaction.commandName == "leave") {
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           const connection = joinVoiceChannel({
-          	channelId: interaction.member.voice.channel.id,
-          	guildId: interaction.guildId,
-          	adapterCreator: interaction.guild.voiceAdapterCreator,
+            channelId: interaction.member.voice.channel.id,
+            guildId: interaction.guildId,
+            adapterCreator: interaction.guild.voiceAdapterCreator,
           });
           // const connection = getVoiceConnection(interaction.guildId);
           player.stop();
           connection.destroy();
           queue = [];
+          module.exports = { queue };
           // for debugging purposes
           console.log(`queue length = ${queue.length}`);
           console.log(`player stats = ${player.state.status}`);
