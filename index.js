@@ -1,31 +1,29 @@
-const fs = require('fs');
-const {Client, Collection, Intents} = require('discord.js');
-const Discord = require('discord.js');
-const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS]});
-const {guildId} = require('./config.json');
-const keepAlive = require("./server");
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-const Canvas = require('canvas');
-const { registerFont } = require('canvas');
-registerFont('./texgyreadventor-bold.otf', { family: 'TeXGyreAdventor' });
+const fs = require("fs");
+const { Client, Collection, Intents } = require("discord.js");
+const Discord = require("discord.js");
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES] });
+const eventFiles = fs.readdirSync("./events").filter((file) => file.endsWith(".js"));
+const { token } = require("./config.json");
+const { registerFont } = require("canvas");
+registerFont("./texgyreadventor-bold.otf", { family: "TeXGyreAdventor" });
 
-require('dotenv').config();
-
-client.on("ready", () => client.user.setPresence({activities: [{ name: "NieR:Automata™",type: "PLAYING"}], status: 'online' }));
-client.on("ready", () => console.log(`Logged in as ${client.user.tag}`));
+client.on("ready", () => {
+  client.user.setPresence({ activities: [{ name: "NieR:Automata™", type: "PLAYING" }], status: "online" });
+  console.log(`Logged in as ${client.user.tag}`);
+});
 
 client.commands = new Collection();
-const commandFiles  = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync("./commands").filter((file) => file.endsWith(".js"));
 
-for(const file of commandFiles){
+for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
-  if(command.Perms) command.defaultPermission= false;
+  if (command.Perms) command.defaultPermission = false;
 }
 
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	client.on(event.name, (...args) => event.execute(...args));
+  const event = require(`./events/${file}`);
+  client.on(event.name, (...args) => event.execute(...args));
 }
 
 /**client.on('interactionCreate', async interaction => {
@@ -37,12 +35,12 @@ for (const file of eventFiles) {
   }
 });**/
 
-client.on('interactionCreate', async interaction => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
-  const command = client.commands.get(interaction.commandName); 
+  const command = client.commands.get(interaction.commandName);
 
-  if(!command) return;
+  if (!command) return;
   /**
   const fullPermissions = [
 	{
@@ -98,16 +96,14 @@ client.on('interactionCreate', async interaction => {
     }],
   }
   ];**/
-  try{    
+  try {
     //console.log(interaction.commandName + ' ' + interaction.commandId);
-    await command.execute(interaction, client); //DONT DELETE    
+    await command.execute(interaction, client); //DONT DELETE
     /**await client.guilds.cache.get(guildId)?.commands.permissions.set({ fullPermis sions });**/
-
-  }catch(error){
+  } catch (error) {
     console.error(error);
-    return interaction.reply({context:'There was an error while executing this command!', ephemeral: true});
+    return interaction.reply({ context: "There was an error while executing this command!", ephemeral: true });
   }
 });
 
-keepAlive();
-client.login(process.env.TOKEN);
+client.login(token);
