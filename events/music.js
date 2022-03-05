@@ -6,7 +6,7 @@ const { MessageEmbed } = require("discord.js");
 const play = require("play-dl");
 const player = createAudioPlayer({
   behaviors: {
-    noSubscriber: NoSubscriberBehavior.Stop,
+    noSubscriber: NoSubscriberBehavior.Pause,
   },
 });
 let queue = [];
