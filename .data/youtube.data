@@ -1,0 +1,31 @@
+{
+    "cookie": {
+        "VISITOR_INFO1_LIVE": "8X3Xtfq01qo",
+        "_ga": "GA1.2.270746590.1633214471",
+        "NID": "511=vpAtMqFSjFUPfPNwxAKzytOlubxJ1DRb85kt5WCBucrzDTDXdQi6lVWKhMEIpNtmDZF4K9ujNTQ58tyFIBjCfk_5wcTD64RLab13ObDFSsiidEeQKTEJVZX7EtFFdGCrmHaPplYQbsuiUQJxroTc3jmA0QFpCwdPJAw127EpAp9DaUd-86Qo2QSGUtkjnUSTCEKzzK28eTw7gS_iWpYUT7tmACJUVf_UJ9bBbKNherGSQ-tyoC108c4s5vQW4geYO8g-jnJTAFI6kNc-EALKyWOBAFAlijiX9A",
+        "LOGIN_INFO": "AFmmF2swRQIgEyPDygto8Uul0ypAspqzSgmzDVvcjoZPR-ApO-TECckCIQD_4VToQQdFOWhO6l269TojKXyXBLfCW22rAlTOqGIDUA:QUQ3MjNmeWxNUGUyVklLTUV0c29GekN6ZWFfdXd1QURkQUx6ZFI2TFdjbnVEYVZ4bU1vUE9xazU4b0sxbE9TcV9xaEVjVmtESmFfSUliRG0xZ0Z6eHhxdUhqVkxRdEl5ZS0xSGEtU2JFWFV2NEpFVGJkOFFjZXdhVlVyTTJhUWJHY1BndGhUbFJvdjkxYlg3aWJ4NFhFOFhQYWphR2cwOVhRdmZ6dHJLb1ZtUzR3VVVIZzFZU2pTUkdtQkp0QURXRkVIeWVQMnQ0aFY5Um1HRWg1WVBqYm1pd3hEcWR6Q2Vzdw==",
+        "SID": "IghHoN3-FpWkI1ra7XSr5NDFUBMbb4bYaNbAnzRytEo1EliLU_7cK0r2UiIHQWlgbGI9YQ.",
+        "__Secure-1PSID": "IghHoN3-FpWkI1ra7XSr5NDFUBMbb4bYaNbAnzRytEo1EliLotMDVYhrZibjRjfeEXmGFg.",
+        "__Secure-3PSID": "IghHoN3-FpWkI1ra7XSr5NDFUBMbb4bYaNbAnzRytEo1EliLHYuiSxmFU9t93kpyHn6Lmw.",
+        "HSID": "AvuIbcwbA1MKFdouI",
+        "SSID": "Ans2qcJ2ifWxkZWio",
+        "APISID": "gc3Uq1x83xsfogm4/A7V_JV3S3q4pdkA11",
+        "SAPISID": "7qiVJ7jg27ueRKLw/A-hIYyS5bAbyQk7dU",
+        "__Secure-1PAPISID": "7qiVJ7jg27ueRKLw/A-hIYyS5bAbyQk7dU",
+        "__Secure-3PAPISID": "7qiVJ7jg27ueRKLw/A-hIYyS5bAbyQk7dU",
+        "PREF": "",
+        "YSC": "6OtyC3H8-uY",
+        "wide": "1",
+        "SIDCC": "AJi4QfF4ceuhcEH_eXQGxLxq4t7HLmF507hYape6v3IlYoeLV2ALdmFsDykUjY6_d1lMAzHYbFk",
+        "__Secure-3PSIDCC": "AJi4QfGVpq__01DBpLWlN6zKhL2LHN82ORug86_FwGV3fxcXM_CIgm1D934MK3ymZmuWkRJuu8o",
+        "domain": ".youtube.com",
+        "path": "/",
+        "expires": "Mon, 05-May-1975 16:01:01 GMT",
+        "Domain": ".youtube.com",
+        "Expires": "Fri, 23-Sep-2022 15:59:27 GMT",
+        "Path": "/",
+        "SameSite": "none",
+        "Priority": "HIGH"
+    },
+    "file": true
+}
