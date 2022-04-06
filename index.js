@@ -23,7 +23,11 @@ for (const file of commandFiles) {
 
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
-  client.on(event.name, (...args) => event.execute(...args));
+  if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, client));
+	}
 }
 
 /**client.on('interactionCreate', async interaction => {

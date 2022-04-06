@@ -10,7 +10,10 @@ const player = createAudioPlayer({
   },
 });
 let queue = [];
-let chan;
+let chan,
+  pcd = false,
+  loop = 0,
+  samemusic = 0;
 module.exports = { queue, player };
 
 async function playMusic() {
@@ -22,28 +25,43 @@ async function playMusic() {
 }
 
 player.on(AudioPlayerStatus.Playing, () => {
-  const emb = new MessageEmbed()
-    .setColor("#58b9ff")
-    .setTitle("Now Playing")
-    .setDescription(`[${queue[0][0]}](${queue[0][1]})`)
-    .setThumbnail(`${queue[0][2]}`)
-    .setFooter({ text: `Added by ${queue[0][3]}`, iconURL: `${queue[0][4]}` });
-  chan.send({ embeds: [emb] });
-  console.log(`Playing ${queue[0][0]}`);
-  console.log(`playing check = ${player.state.status}`);
+  try {
+    if (pcd == false) {
+      pcd = true;
+      if (samemusic == 0 || queue.length > 1) {
+        const emb = new MessageEmbed()
+          .setColor("#58b9ff")
+          .setTitle("Now Playing")
+          .setDescription(`[${queue[0][0]}](${queue[0][1]})`)
+          .setThumbnail(`${queue[0][2]}`)
+          .setFooter({ text: `Added by ${queue[0][3]}`, iconURL: `${queue[0][4]}` });
+        chan.send({ embeds: [emb] });
+      }
+      console.log(`Playing ${queue[0][0]}`);
+      console.log(`playing check = ${player.state.status}`);
+      setTimeout(() => (pcd = false), 2_000);
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 player.on(AudioPlayerStatus.Idle, () => {
   console.log(`idle check = ${player.state.status}`);
   if (queue.length > 0) {
-    queue.splice(0, 1);
-    module.exports = { queue };
+    if (loop == 0) {
+      queue.splice(0, 1);
+      module.exports = { queue };
+    } else if (loop == 2 || loop == 1 && queue.length == 1) {
+      samemusic = 1;
+    }
     if (queue.length > 0) {
       playMusic();
     }
     // for debugging purpose
     console.table(queue);
     console.log(queue.length);
+    console.log(loop);
   }
 });
 
@@ -209,18 +227,45 @@ module.exports = {
       }
 
       if (interaction.commandName === "pause") {
+        if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           player.pause();
         }
       }
 
+      if (interaction.commandName === "loop") {
+        if (interaction.member.voice.channel == null) return;
+        if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
+          const emb = new MessageEmbed().setColor("#58b9ff");
+          switch (loop) {
+            case 0:
+              loop = 1;
+              emb.setDescription("Now looping the **queue**.");
+              interaction.reply({ embeds: [emb] });
+              break;
+            case 1:
+              loop = 2;
+              emb.setDescription("Now looping the **current track**.");
+              interaction.reply({ embeds: [emb] });
+              break;
+            case 2:
+              loop = 0;
+              emb.setDescription("Looping is now **disabled**.");
+              interaction.reply({ embeds: [emb] });
+              break;
+          }
+        }
+      }
+
       if (interaction.commandName === "resume") {
+        if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           player.unpause();
         }
       }
 
       if (interaction.commandName === "stop") {
+        if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           player.stop();
           queue = [];
@@ -229,6 +274,7 @@ module.exports = {
       }
 
       if (interaction.commandName == "leave") {
+        if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           const connection = joinVoiceChannel({
             channelId: interaction.member.voice.channel.id,
@@ -273,16 +319,16 @@ module.exports = {
         }
       }
 
-      if (interaction.commandName === "queue") {
-        if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
-          console.table(queue);
-          console.log(player.state.status);
-        }
-      }
+      // if (interaction.commandName === "queue") {
+      //   if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
+      //     console.table(queue);
+      //     console.log(player.state.status);
+      //   }
+      // }
 
-      console.log(`Idle Listener: ${player.listenerCount(AudioPlayerStatus.Idle)}`);
-      console.log(`Playing Listener: ${player.listenerCount(AudioPlayerStatus.Playing)}`);
-      console.log(`player stats = ${player.state.status}`);
+      // console.log(`Idle Listener: ${player.listenerCount(AudioPlayerStatus.Idle)}`);
+      // console.log(`Playing Listener: ${player.listenerCount(AudioPlayerStatus.Playing)}`);
+      // console.log(`player stats = ${player.state.status}`);
     } catch (err) {
       console.log(err);
       interaction.channel.send(`**Sum ting wong:**${err}`);
