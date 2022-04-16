@@ -18,7 +18,7 @@
     "fontconfig": "^0.2.2",
     "jimp": "^0.16.1",
     "libsodium-wrappers": "^0.7.9",
-    "play-dl": "^1.8.8",
+    "play-dl": "^1.9.4",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
