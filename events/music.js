@@ -50,6 +50,7 @@ player.on(AudioPlayerStatus.Playing, () => {
 });
 
 player.on(AudioPlayerStatus.Idle, () => {
+  timer.stop();
   console.log(`idle check = ${player.state.status}`);
   if (queue.length > 0) {
     if (loop == 0) {
@@ -64,8 +65,6 @@ player.on(AudioPlayerStatus.Idle, () => {
     }
     if (queue.length > 0) {
       playMusic();
-      timer.stop();
-      timer.start();
     }
     // for debugging purpose
     console.table(queue);
