@@ -1,7 +1,8 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-unused-vars */
 const { createAudioPlayer, NoSubscriberBehavior, joinVoiceChannel, createAudioResource, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require("@discordjs/voice");
-const validUrl = require("valid-url");
+const { Timer } = require("timer-node");
+const timer = new Timer({ label: "test-timer" });
 const { MessageEmbed } = require("discord.js");
 const play = require("play-dl");
 const player = createAudioPlayer({
@@ -22,6 +23,7 @@ async function playMusic() {
     inputType: stream.type,
   });
   player.play(resource, { seek: 0, volume: 1 });
+  timer.start();
 }
 
 player.on(AudioPlayerStatus.Playing, () => {
@@ -36,6 +38,7 @@ player.on(AudioPlayerStatus.Playing, () => {
           .setThumbnail(`${queue[0][2]}`)
           .setFooter({ text: `Added by ${queue[0][3]}`, iconURL: `${queue[0][4]}` });
         chan.send({ embeds: [emb] });
+        timer.start();
       }
       console.log(`Playing ${queue[0][0]}`);
       console.log(`playing check = ${player.state.status}`);
@@ -52,11 +55,17 @@ player.on(AudioPlayerStatus.Idle, () => {
     if (loop == 0) {
       queue.splice(0, 1);
       module.exports = { queue };
-    } else if (loop == 2 || loop == 1 && queue.length == 1) {
+    } else if (loop == 2 || (loop == 1 && queue.length == 1)) {
       samemusic = 1;
+    } else if (loop == 1 || (loop == 1 && samemusic == 1 && queue.length > 1)) {
+      queue.push([`${queue[0][0]}`, `${queue[0][1]}`, `${queue[0][2]}`, `${queue[0][3]}`, `${queue[0][4]}`, `${queue[0][5]}`]);
+      queue.splice(0, 1);
+      module.exports = { queue };
     }
     if (queue.length > 0) {
       playMusic();
+      timer.stop();
+      timer.start();
     }
     // for debugging purpose
     console.table(queue);
@@ -215,11 +224,11 @@ module.exports = {
       }
 
       if (interaction.commandName === "np") {
-        if (player.state.status == "playing") {
+        if (player.state.status == "playing" || queue.length > 0) {
           const emb = new MessageEmbed()
             .setColor("#58b9ff")
             .setTitle("Now Playing")
-            .setDescription(`[${queue[0][0]}](${queue[0][1]})\n${queue[0][5]}`)
+            .setDescription(`[${queue[0][0]}](${queue[0][1]})\n${timer.format("%m:%s")} / ${queue[0][5]}`)
             .setThumbnail(`${queue[0][2]}`)
             .setFooter({ text: `Added by ${queue[0][3]}`, iconURL: `${queue[0][4]}` });
           return interaction.reply({ embeds: [emb] });
@@ -230,6 +239,7 @@ module.exports = {
         if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           player.pause();
+          timer.pause();
         }
       }
 
@@ -261,6 +271,7 @@ module.exports = {
         if (interaction.member.voice.channel == null) return;
         if (interaction.guild.me.voice.channel && interaction.member.voice.channel.id == interaction.guild.me.voice.channelId) {
           player.unpause();
+          timer.resume();
         }
       }
 
@@ -270,6 +281,7 @@ module.exports = {
           player.stop();
           queue = [];
           module.exports = { queue };
+          timer.stop();
         }
       }
 
@@ -289,6 +301,7 @@ module.exports = {
           // for debugging purposes
           console.log(`queue length = ${queue.length}`);
           console.log(`player stats = ${player.state.status}`);
+          timer.stop();
         }
       }
 
@@ -301,6 +314,8 @@ module.exports = {
           console.log(`nmb = ${nmb}`);
           if (nmb == null || nmb == 0) {
             interaction.reply(`<:Rita_Smile:942452006910562354> Skipped **${queue[0][0]}**`);
+            timer.stop();
+            timer.start();
             queue.splice(0, 1);
             console.log(`queue length = ${queue.length}`);
             if (queue.length != 0) {
@@ -311,6 +326,7 @@ module.exports = {
               player.play(resource, { seek: 0, volume: 1 });
             } else {
               player.stop();
+              timer.stop();
             }
           } else {
             interaction.reply(`<:Rita_Smile:942452006910562354> Removed **${queue[nmb][0]}**`);
